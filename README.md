@@ -4,7 +4,8 @@
 
 - Download the files
 - cd into the directory
-- > stack build
-- > stack run
+- Run:
+-  stack build
+-   stack run
 - (Alternatively, stack run will build the files for you).
 
