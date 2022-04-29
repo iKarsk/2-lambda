@@ -1,0 +1,35 @@
+name:                cswk-program
+version:             0.1.0.0
+
+extra-source-files:
+- README.md
+
+dependencies:
+- base >= 4.7 && < 5
+- gloss
+- random
+
+library:
+  source-dirs: src
+
+executables:
+  cswk-program-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - cswk-program
+
+tests:
+  cswk-program-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - cswk-program
