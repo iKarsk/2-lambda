@@ -1,3 +1,10 @@
-# cswk-program
+## 2^λ - An implementation of 2048 written in Haskell 
 
-This is the skeleton code for the second coursework in the 2022 iteration of CS141 Functional Programming at the University of Warwick.
+# How to run
+
+- Download the files
+- cd into the directory
+- > stack build
+- > stack run
+- (Alternatively, stack run will build the files for you).
+
