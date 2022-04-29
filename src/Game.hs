@@ -66,7 +66,7 @@ render world@World{stage = x, grid=g, score = s} =
             | otherwise          -> pictures [playingScreen g s]
 
         where
-            endScreen = pictures ([playingScreen g s] ++ [gameOverScreen s]) -- Want a transparent overlay for the end, join the grid and the end screen.
+            endScreen = pictures (playingScreen g s : [gameOverScreen s]) -- Want a transparent overlay for the end, join the grid and the end screen.
             checkGameEnd = move world Up == world && move world Left == world && move world Down == world && move world Right == world --Check whether game is over, might be no more moves.
 
 
@@ -117,7 +117,7 @@ shift xs = let
     merged = merge reduced
 
     -- Add any necessary 0's back into the row
-    combined =  reverse (merged ++ (replicate (length xs - length merged) 0))
+    combined =  reverse (merged ++ replicate (length xs - length merged) 0)
 
     -- We can find the score gained by finding the set difference (\\) which will contain the new score and folding over it.
     score = foldr (+) 0 (xs \\ combined)
@@ -137,28 +137,28 @@ move world@World{grid = g, score = s} d =
             | otherwise             -> addRandom newWorld
                 where
                     combined = map shift $ transpose g
-                    newWorld = world{grid = transpose $ map fst $ combined, score = s + (sum $ map snd $ combined)}
+                    newWorld = world{grid = transpose $ map fst combined, score = s + sum (map snd combined)}
         
         Left 
             | world == newWorld     -> world 
             | otherwise             -> addRandom newWorld
             where
-                combined = map shift $ map reverse g
-                newWorld = world{grid = map reverse $ map fst $ combined, score = s + (sum $ map snd $ combined)}
+                combined = map (shift . reverse) g
+                newWorld = world{grid = map (reverse . fst) combined, score = s + sum (map snd combined)}
 
         Down 
             | world == newWorld     -> world
             | otherwise             -> addRandom newWorld
             where
                 combined = map shift $ (transpose.reverse) g
-                newWorld = world{grid = (reverse.transpose) $ map fst $ combined, score = s + (sum $ map snd $ combined)}
+                newWorld = world{grid = (reverse.transpose) $ map fst combined, score = s + sum (map snd combined)}
 
         Right 
             | world == newWorld     -> world
             | otherwise             -> addRandom newWorld
             where
                 combined = map shift g
-                newWorld = world{grid = map fst $ combined, score = s + (sum $ map snd $ combined)}
+                newWorld = world{grid = map fst combined, score = s + sum (map snd combined)}
 
 
 
@@ -198,7 +198,7 @@ replace grid (r,c) x = let
 -- let.. in also keeps the code tidy.
 addRandom :: World -> World
 addRandom world@World{grid = g, randomGenerator = gen} = 
-    if length (zeroList g) == 0 then world
+    if null (zeroList g) then world
     else
         let
             allZeros = zeroList g
