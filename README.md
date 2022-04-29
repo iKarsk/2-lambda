@@ -9,3 +9,8 @@
 -   stack run
 - (Alternatively, stack run will build the files for you).
 
+
+```console
+foo@bar:~$ whoami
+foo
+```
