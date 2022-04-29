@@ -3,14 +3,9 @@
 # How to run
 
 - Download the files
-- cd into the directory
-- Run:
--  stack build
--   stack run
-- (Alternatively, stack run will build the files for you).
-
-
+- cd into the directory.
 ```console
-foo@bar:~$ whoami
-foo
+foo@bar:~$ stack build
+foo@bar:~$ stack run
 ```
+- (Alternatively, stack run will build the files for you automatically).
